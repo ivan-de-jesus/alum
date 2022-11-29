@@ -19,12 +19,12 @@
     <v-stepper-items>
       <v-stepper-content step="1">
         <v-card class="mb-12" color="#063A18" height="200px">
-          <p>
+          <p v-if="this.asignado">
             {{ this.anuncio }}
           </p>
         </v-card>
         <v-row>
-          <v-btn color="primary" @click="e1 = 2"> Continue </v-btn>
+          <v-btn disabled="true" color="primary" @click="e1 = 2"> Continue </v-btn>
 
           <v-btn text> Cancel </v-btn>
 
@@ -58,6 +58,7 @@ export default {
     return {
       e1: 1,
       anuncio: "",
+      asignado: false
     };
   },
 
@@ -65,15 +66,20 @@ export default {
   created() {
 
     this.getExercises();
+    this.getStudents();
   },
   methods: {
     async getExercises() {
-      
       const res = await this.axios.get("http://localhost:3000/exercises");
-      console.log("Entro al get ", res)
+      console.log("Entro al get ", res) 
       this.anuncio = res.data[0].instruction + " : " + res.data[0].exercise; 
       this.desserts = res.data;
     },
+    async getStudents() {
+            const res = await this.axios.get("http://localhost:3000/students");
+            this.asignado =  res.data[0].assignedExercise;
+            console.log("estudiantes",res.data)
+        },
   },
 };
 </script>

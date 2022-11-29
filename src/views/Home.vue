@@ -1,5 +1,5 @@
 <template>
-<div class="home">
+<div  id="building" class="home">
    <v-alert color="red" border="left"  icon="$mdiAccount" type="warning" :value="alert"></v-alert>
 
     <v-content>
@@ -50,6 +50,7 @@ export default {
     },
 
     methods: {
+        
         async getStudents() {
             const res = await this.axios.get("http://localhost:3000/students");
             this.students = res.data;
@@ -67,3 +68,13 @@ export default {
     },
 };
 </script>
+
+<style>
+#building{
+background:url("../assets/fondo.png");
+width:100%;		
+height:100%;		
+position:fixed;
+background-size:100% 100%;
+}
+</style>
